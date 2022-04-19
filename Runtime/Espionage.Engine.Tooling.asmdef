@@ -1,0 +1,17 @@
+{
+    "name": "Espionage.Engine.Tooling",
+    "rootNamespace": "Espionage.Engine.Tooling",
+    "references": [
+        "GUID:b479bc809753b2141a4f58843671b904",
+        "GUID:d60799ab2a985554ea1a39cd38695018"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
