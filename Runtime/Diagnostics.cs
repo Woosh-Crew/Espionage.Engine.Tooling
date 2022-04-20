@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Espionage.Engine.PostProcessing;
 using Espionage.Engine.Tripods;
 using ImGuiNET;
 using Espionage.Engine.Tools;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 namespace Espionage.Engine.Services
 {
@@ -193,7 +196,24 @@ namespace Espionage.Engine.Services
 
 				if ( ImGui.BeginMenu( "Graphics" ) )
 				{
-					Callback.Run( "dev.menu_bar.graphics" );
+					// Post Processing Debug Overlays
+					if ( ImGui.BeginMenu( "Fullbright Overlays" ) )
+					{
+						var postFx = Engine.Services.Get<PostFX>();
+
+						foreach ( var value in Enum.GetValues( typeof( DebugOverlay ) ) )
+						{
+							var item = (DebugOverlay)value;
+							
+							if ( ImGui.MenuItem( item.ToString().ToTitleCase().IsEmpty( "Null" ), null, postFx.Debug.debugOverlay == item ) )
+							{
+								postFx.Debug.debugOverlay = postFx.Debug.debugOverlay == item ? DebugOverlay.None : item;
+							}
+						}
+
+						ImGui.EndMenu();
+					}
+
 					ImGui.EndMenu();
 				}
 
