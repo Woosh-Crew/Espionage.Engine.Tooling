@@ -10,14 +10,6 @@ namespace Espionage.Engine.Tools
 	{
 		protected override bool OnLayout( object instance, in IEnumerable value, out IEnumerable change )
 		{
-			if ( Property?.IsStatic ?? false )
-			{
-				ImGui.Text( "Static Property. Not Enumerating" );
-
-				change = null;
-				return false;
-			}
-
 			var tree = ImGui.TreeNode( Property?.Name ?? Type.Name );
 			ImGui.SameLine();
 			ImGui.TextColored( Color.gray, "[Readonly]" );

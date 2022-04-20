@@ -70,7 +70,10 @@ namespace Espionage.Engine.Tools.Editors
 
 									if ( ImGui.Selectable( lib.ToString() ) )
 									{
-										Engine.Services.Get<Diagnostics>().Selection = property.GetValue( item ) as ILibrary;
+										var newValue = property.GetValue( item );
+
+										Engine.Services.Get<Diagnostics>().Selection = newValue;
+										item = newValue;
 									}
 
 									ImGui.SameLine();
@@ -78,7 +81,24 @@ namespace Espionage.Engine.Tools.Editors
 								}
 								else
 								{
-									ImGui.TextDisabled( property.GetValue( item )?.ToString() ?? "Null" );
+									if ( ImGui.Selectable( property.Name ) )
+									{
+										var newValue = property.GetValue( item );
+
+										Engine.Services.Get<Diagnostics>().Selection = newValue;
+										item = newValue;
+									}
+
+									ImGui.SameLine();
+
+									try
+									{
+										ImGui.TextColored( Color.gray, $" [{property.GetValue( item )?.ToString() ?? "Null"}]" );
+									}
+									catch ( Exception )
+									{
+										Debugging.Log.Info( "Somethign went wrong" );
+									}
 								}
 							}
 							else
