@@ -23,6 +23,11 @@ namespace Espionage.Engine.ImGUI
 
 		public override void OnReady()
 		{
+			if ( !Engine.IsDeveloper )
+			{
+				return;
+			}
+
 			// Get the Main Camera
 			var camService = Engine.Services.Get<CameraService>().Camera;
 			_camera = camService;
@@ -58,6 +63,11 @@ namespace Espionage.Engine.ImGUI
 
 		public override void OnUpdate()
 		{
+			if ( !Engine.IsDeveloper )
+			{
+				return;
+			}
+			
 			UImGuiUtility.SetCurrentContext( _context );
 			var io = ImGui.GetIO();
 
@@ -87,6 +97,11 @@ namespace Espionage.Engine.ImGUI
 
 		public override void OnShutdown()
 		{
+			if ( !Engine.IsDeveloper )
+			{
+				return;
+			}
+			
 			// OnDisable
 			UImGuiUtility.SetCurrentContext( _context );
 			var io = ImGui.GetIO();

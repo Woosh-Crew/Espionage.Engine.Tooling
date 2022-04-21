@@ -20,6 +20,11 @@ namespace Espionage.Engine.Services
 
 		public override void OnReady()
 		{
+			if ( !Engine.IsDeveloper )
+			{
+				return;
+			}
+
 			_camera = Engine.Camera;
 			_toolsGrouping = Library.Database.GetAll<Window>().Where( e => !e.Info.IsAbstract ).GroupBy( e => e.Group );
 		}
@@ -54,6 +59,11 @@ namespace Espionage.Engine.Services
 
 		public override void OnUpdate()
 		{
+			if ( !Engine.IsDeveloper )
+			{
+				return;
+			}
+
 			if ( Input.GetKeyDown( KeyCode.F1 ) )
 			{
 				Debugging.Terminal.Invoke( "dev.tripod" );
@@ -204,7 +214,7 @@ namespace Espionage.Engine.Services
 						foreach ( var value in Enum.GetValues( typeof( DebugOverlay ) ) )
 						{
 							var item = (DebugOverlay)value;
-							
+
 							if ( ImGui.MenuItem( item.ToString().ToTitleCase().IsEmpty( "Null" ), null, postFx.Debug.debugOverlay == item ) )
 							{
 								postFx.Debug.debugOverlay = postFx.Debug.debugOverlay == item ? DebugOverlay.None : item;
