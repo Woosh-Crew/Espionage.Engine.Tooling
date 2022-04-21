@@ -46,7 +46,7 @@ namespace Espionage.Engine.Tools.Editors
 					ImGui.Unindent();
 
 					// Properties
-					if ( ImGui.BeginTable( "table_fields", 2, ImGuiTableFlags.Borders | ImGuiTableFlags.RowBg | ImGuiTableFlags.Resizable | ImGuiTableFlags.Reorderable ) )
+					if ( ImGui.BeginTable( "table_properties", 2, ImGuiTableFlags.Borders | ImGuiTableFlags.RowBg | ImGuiTableFlags.Resizable | ImGuiTableFlags.Reorderable ) )
 					{
 						ImGui.TableSetupColumn( "Name", ImGuiTableColumnFlags.WidthFixed, 96 );
 						ImGui.TableSetupColumn( "Value" );
@@ -55,6 +55,11 @@ namespace Espionage.Engine.Tools.Editors
 
 						foreach ( var property in _properties )
 						{
+							if ( property.GetIndexParameters().Length > 0 )
+							{
+								continue;
+							}
+							
 							ImGui.TableNextColumn();
 							ImGui.Text( property.Name );
 
@@ -63,42 +68,23 @@ namespace Espionage.Engine.Tools.Editors
 
 							if ( property.GetMethod != null )
 							{
-								// Crap Hardcoded Library Drawer
-								if ( property.PropertyType.HasInterface<ILibrary>() )
+								if ( ImGui.Selectable( property.Name ) )
 								{
-									var lib = property.GetValue( item ) as ILibrary;
+									var newValue = property.GetValue( item );
 
-									if ( ImGui.Selectable( lib.ToString() ) )
-									{
-										var newValue = property.GetValue( item );
-
-										Engine.Services.Get<Diagnostics>().Selection = newValue;
-										item = newValue;
-									}
-
-									ImGui.SameLine();
-									ImGui.TextColored( Color.gray, $" [{lib.ClassInfo.Title}]" );
+									Engine.Services.Get<Diagnostics>().Selection = newValue;
+									item = newValue;
 								}
-								else
+
+								ImGui.SameLine();
+
+								try
 								{
-									if ( ImGui.Selectable( property.Name ) )
-									{
-										var newValue = property.GetValue( item );
-
-										Engine.Services.Get<Diagnostics>().Selection = newValue;
-										item = newValue;
-									}
-
-									ImGui.SameLine();
-
-									try
-									{
-										ImGui.TextColored( Color.gray, $" [{property.GetValue( item )?.ToString() ?? "Null"}]" );
-									}
-									catch ( Exception )
-									{
-										Debugging.Log.Info( "Somethign went wrong" );
-									}
+									ImGui.TextColored( Color.gray, $" [{property.GetValue( item )?.ToString() ?? "Null"}]" );
+								}
+								catch ( Exception )
+								{
+									Debugging.Log.Info( "Something went wrong" );
 								}
 							}
 							else

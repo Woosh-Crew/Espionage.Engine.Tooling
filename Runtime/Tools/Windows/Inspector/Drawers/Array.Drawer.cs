@@ -1,4 +1,5 @@
 ﻿using System;
+using Espionage.Engine.Services;
 using ImGuiNET;
 using UnityEngine;
 
@@ -50,6 +51,8 @@ namespace Espionage.Engine.Tools
 						ImGui.Text( "Empty Array" );
 					}
 				}
+				
+				Engine.Services.Get<Diagnostics>().Selection = value;
 
 				ImGui.TreePop();
 			}

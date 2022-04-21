@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Espionage.Engine.Services;
 using ImGuiNET;
 using UnityEngine;
 
@@ -53,6 +54,11 @@ namespace Espionage.Engine.Tools
 					{
 						ImGui.Text( "Empty Collection" );
 					}
+				}
+				
+				if ( ImGui.Selectable( "Inspect Collection" ) )
+				{
+					Engine.Services.Get<Diagnostics>().Selection = value;
 				}
 
 				ImGui.TreePop();
