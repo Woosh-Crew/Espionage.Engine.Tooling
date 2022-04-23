@@ -22,6 +22,8 @@ namespace Espionage.Engine.Tools
 			
 			// Load Model
 			_preview.Visuals.Model = Resource.Load<Model>( _input );
+
+			Window.Show<Viewport>().Inspecting = _preview;
 		}
 	}
 }
