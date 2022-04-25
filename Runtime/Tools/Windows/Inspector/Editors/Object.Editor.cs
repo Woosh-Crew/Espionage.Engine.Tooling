@@ -74,6 +74,8 @@ namespace Espionage.Engine.Tools.Editors
 
 									Engine.Services.Get<Diagnostics>().Selection = newValue;
 									item = newValue;
+
+									return;
 								}
 
 								ImGui.SameLine();
