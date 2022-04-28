@@ -1,4 +1,4 @@
-﻿using Espionage.Engine.Services;
+﻿using Espionage.Engine;
 using ImGuiNET;
 using UnityEngine;
 
@@ -19,7 +19,7 @@ namespace Espionage.Engine.Tools
 
 			if ( ImGui.Selectable( value.ToString() ) )
 			{
-				Engine.Services.Get<Diagnostics>().Selection = value;
+				Engine.Modules.Get<Diagnostics>().Selection = value;
 			}
 
 			ImGui.SameLine();

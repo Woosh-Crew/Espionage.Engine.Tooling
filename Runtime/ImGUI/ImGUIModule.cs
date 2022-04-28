@@ -2,7 +2,7 @@ using Espionage.Engine.ImGUI.Assets;
 using Espionage.Engine.ImGUI.Events;
 using Espionage.Engine.ImGUI.Platform;
 using Espionage.Engine.ImGUI.Renderer;
-using Espionage.Engine.Services;
+using Espionage.Engine;
 using ImGuiNET;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -10,7 +10,7 @@ using UnityEngine.Rendering;
 namespace Espionage.Engine.ImGUI
 {
 	[Order( 50 ), Title( "ImGUI" )]
-	public sealed class ImGUIService : Service
+	public sealed class ImGUIModule : Module
 	{
 		private ShaderResourcesAsset Shaders { get; set; }
 		private StyleAsset Style { get; set; }
@@ -21,15 +21,15 @@ namespace Espionage.Engine.ImGUI
 		private IPlatform _platform;
 		private CommandBuffer _renderCommandBuffer;
 
-		public override void OnReady()
+		protected override void OnReady()
 		{
-			if ( !Engine.IsDeveloper )
+			if ( !Debugging.IsDeveloper )
 			{
 				return;
 			}
 
 			// Get the Main Camera
-			var camService = Engine.Services.Get<CameraService>().Camera;
+			var camService = Engine.Modules.Get<CameraModule>().Camera;
 			_camera = camService;
 
 			// Load Default Resources
@@ -61,9 +61,9 @@ namespace Espionage.Engine.ImGUI
 			Assert.IsNull( _renderer );
 		}
 
-		public override void OnUpdate()
+		protected override void OnUpdate()
 		{
-			if ( !Engine.IsDeveloper )
+			if ( !Debugging.IsDeveloper )
 			{
 				return;
 			}
@@ -95,9 +95,9 @@ namespace Espionage.Engine.ImGUI
 			Constants.DrawListMarker.End();
 		}
 
-		public override void OnShutdown()
+		protected override void OnShutdown()
 		{
-			if ( !Engine.IsDeveloper )
+			if ( !Debugging.IsDeveloper )
 			{
 				return;
 			}

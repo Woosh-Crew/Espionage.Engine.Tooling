@@ -9,7 +9,7 @@ namespace Espionage.Engine.Tools
 		{
 			ImGui.BeginChild( "Output", new( 0, 0 ), true, ImGuiWindowFlags.ChildWindow );
 			{
-				foreach ( var service in Engine.Services )
+				foreach ( var service in Engine.Modules )
 				{
 					if ( ImGui.Selectable( $"{service.ClassInfo.Title}" ) )
 					{
@@ -17,7 +17,6 @@ namespace Espionage.Engine.Tools
 					}
 
 					ImGui.TextColored( Color.gray, $"ClassInfo: [{service.ClassInfo.Name}] - [{service.ClassInfo.Group}]" );
-					ImGui.TextColored( Color.gray, $"Stopwatch: [Ready = {service.Time}ms]" );
 					ImGui.Separator();
 				}
 			}

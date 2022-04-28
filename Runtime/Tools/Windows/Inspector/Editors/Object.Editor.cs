@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using Espionage.Engine.Services;
+using Espionage.Engine;
 using ImGuiNET;
 using UnityEngine;
 
@@ -72,7 +72,7 @@ namespace Espionage.Engine.Tools.Editors
 								{
 									var newValue = property.GetValue( item );
 
-									Engine.Services.Get<Diagnostics>().Selection = newValue;
+									Engine.Modules.Get<Diagnostics>().Selection = newValue;
 									item = newValue;
 
 									return;

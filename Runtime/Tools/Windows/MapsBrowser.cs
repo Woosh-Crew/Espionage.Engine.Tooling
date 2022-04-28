@@ -21,7 +21,7 @@ namespace Espionage.Engine.Tools
 					{
 						if ( ImGui.Button( "Load" ) )
 						{
-							Engine.Game.Loader.Start( entry );
+							Engine.Modules.Get<Loader>().Start( entry );
 						}
 
 						if ( ImGui.Button( "Close" ) )

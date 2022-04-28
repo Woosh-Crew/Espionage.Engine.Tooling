@@ -1,26 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Espionage.Engine.PostProcessing;
 using Espionage.Engine.Tripods;
 using ImGuiNET;
 using Espionage.Engine.Tools;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
-namespace Espionage.Engine.Services
+namespace Espionage.Engine
 {
 	/// <summary>
 	/// Diagnostics service is responsible for providing the
 	/// dev tripod, and tools. For use in debugging.
 	/// </summary>
-	public sealed class Diagnostics : Service
+	public sealed class Diagnostics : Module
 	{
 		private Camera _camera;
 
-		public override void OnReady()
+		protected override void OnReady()
 		{
-			if ( !Engine.IsDeveloper )
+			if ( !Debugging.IsDeveloper )
 			{
 				return;
 			}
@@ -57,9 +56,9 @@ namespace Espionage.Engine.Services
 		public Entity Hovering { get; set; }
 		private Collider _lastCollider;
 
-		public override void OnUpdate()
+		protected override void OnUpdate()
 		{
-			if ( !Engine.IsDeveloper )
+			if ( !Debugging.IsDeveloper )
 			{
 				return;
 			}
@@ -209,7 +208,7 @@ namespace Espionage.Engine.Services
 					// Post Processing Debug Overlays
 					if ( ImGui.BeginMenu( "Fullbright Overlays" ) )
 					{
-						var postFx = Engine.Services.Get<PostFX>();
+						var postFx = Engine.Modules.Get<PostFX>();
 
 						foreach ( var value in Enum.GetValues( typeof( DebugOverlay ) ) )
 						{

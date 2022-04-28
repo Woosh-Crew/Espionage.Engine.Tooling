@@ -6,7 +6,7 @@ namespace Espionage.Engine.Tools
 	{
 		public override void OnLayout()
 		{
-			var loader = Engine.Game.Loader;
+			var loader = Engine.Modules.Get<Loader>();
 
 			if ( loader.Current == null )
 			{
