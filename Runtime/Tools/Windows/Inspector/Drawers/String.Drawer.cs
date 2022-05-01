@@ -15,7 +15,7 @@ namespace Espionage.Engine.Tools
 
 			var newValue = value;
 
-			if ( Property is { Editable: false } )
+			if ( Property?.Editable ?? false )
 			{
 				ImGui.TextWrapped( value );
 

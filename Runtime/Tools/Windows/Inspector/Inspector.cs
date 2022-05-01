@@ -77,7 +77,7 @@ namespace Espionage.Engine.Tools
 
 		public static void PropertyGUI( Property property, object instance )
 		{
-			if ( PropertyGUI( property.Type, property, instance, property[instance], out var changed ) )
+			if ( PropertyGUI( property.Type, property, instance, property[instance], out var changed ))
 			{
 				property[instance] = changed;
 			}
